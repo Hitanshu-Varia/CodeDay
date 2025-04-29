@@ -2,44 +2,43 @@ name: Greenify Contributions
 
 on:
   schedule:
-    - cron: '0 3 * * *'
-    - cron: '0 4 * * *'
-    - cron: '0 5 * * *'
-    - cron: '0 6 * * *'
-    - cron: '0 7 * * *'
-    - cron: '0 8 * * *'
-    - cron: '0 9 * * *'
-    - cron: '0 10 * * *'
-    - cron: '0 11 * * *'
-    - cron: '0 12 * * *'
-    - cron: '0 13 * * *'
-    - cron: '0 14 * * *'
-    - cron: '0 15 * * *'
-    - cron: '0 16 * * *'
-    - cron: '0 17 * * *'
-    - cron: '0 18 * * *'
-    - cron: '0 19 * * *'
-    - cron: '0 20 * * *'
-    - cron: '0 21 * * *'
-    - cron: '0 22 * * *'
+    - cron: '0 0 * * *'
+    - cron: '0 1 * * *'
+    - cron: '0 2 * * *'  
+    - cron: '0 3 * * *'  
+    - cron: '0 4 * * *'  
+    - cron: '0 5 * * *'  
+    - cron: '0 7 * * *'  
+    - cron: '0 10 * * *'  
+    - cron: '0 15 * * *'  
+    - cron: '0 17 * * *'  
+    - cron: '0 20 * * *'   
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   greenify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Python
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
-      - name: Run Greenify Bot
-        run: |
-          python greenify.py
-      - name: Commit and Push
-        run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
-          git add README.md
-          git commit -m "🌱 Daily ping"
-          git push
+          python-version: '3.x'
 
+      - name: Run greenify script
+        run: python greenify.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "Hitanshu-Varia"
+          git config --global user.email "variahitanshu@gmail.com"
+          git add README.md
+          git commit -m "🌿 Daily greenify ping" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{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}}
